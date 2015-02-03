@@ -1,37 +1,19 @@
 <?php
 
-$db_host	=$conf['mysql']['hostname']; 
-$db_user	=$conf['mysql']['username']; 
-$db_pass	=$conf['mysql']['password'];
-$db_name	=$conf['mysql']['database'];
+$db_host	=$conf['oracle']['hostname']; 
+$db_user	=$conf['oracle']['username']; 
+$db_pass	=$conf['oracle']['password'];
+$db_name	=$conf['oracle']['database'];
 
-$db_conn 	= new mysqli($db_host, $db_user, $db_pass, $db_name);
-if ($db_conn->connect_error) {
-	trigger_error('Database connection failed: '  . $db_conn->connect_error, E_USER_ERROR);
+$conn_oracle = oci_connect($conf['oracle']['username'], $conf['oracle']['password'], $conf['oracle']['hostname'], 'utf8');
+if (!$conn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
-$db_conn->set_charset("utf8");
-
-// count total database execution
-$db_execute_count = 0;
 
 // -----------------------------------------------------------
 // -----------------------------------------------------------
-// mysqli
-
-// [insert]
-// return inserted id
-// can determine result by if($id > 0)
-
-// [update, delete]
-// return affected rows
-// can determine result by 
-// if($result > 0) 	: success with required affected row.
-// if($result >= 0) : success with does not required affected row.
-
-// [select]
-// return the first single row
-// return null if not found
-// can determine result by if($result)
+/*
 function queryDB($sql){
 
 	global $db_conn;
@@ -79,6 +61,7 @@ function queryArray($sql){
 	
 	return $temp_array;
 }
+*/
 // -----------------------------------------------------------
 // -----------------------------------------------------------
 ?>
