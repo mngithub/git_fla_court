@@ -3,7 +3,7 @@
 session_start(); 
 require_once("init.php");
 require_once("utils.php");
-//require_once("db_oracle/db_service.php");
+//require_once("db_microsoft_sql/db_service.php");
 
 $result_formated = array();
 echo json_encode($result_formated);
