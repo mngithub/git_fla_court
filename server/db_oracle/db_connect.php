@@ -5,12 +5,32 @@ $db_user	=$conf['oracle']['username'];
 $db_pass	=$conf['oracle']['password'];
 $db_name	=$conf['oracle']['database'];
 
+$tns = "  
+(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = ".$db_host.")(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = XE)
+    )
+  )
+";
+$pdo = new PDO('oci:dbname='.$tns, $db_user, $db_pass);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+//$conn_oracle = OCILogon($conf['oracle']['username'], $conf['oracle']['password'], $conf['oracle']['hostname']);
+
+/*
 $conn_oracle = oci_connect($conf['oracle']['username'], $conf['oracle']['password'], $conf['oracle']['hostname'], 'utf8');
-if (!$conn) {
+if (!$conn_oracle) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
+*/
 
+
+//$db = "oci:dbname=git_court";
+//$conn = new PDO($db,$conf['oracle']['username'],$conf['oracle']['password']);
 // -----------------------------------------------------------
 // -----------------------------------------------------------
 /*
