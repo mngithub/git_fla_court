@@ -16,6 +16,10 @@ foreach ($result_unformat as $k => $v) {
 	$tmp['user'] 		= $v['u_name'];
 	// yyyy-mm-dd hh:mm:ss
 	$tmp['create_time'] = $v['d_create_time'];
+	
+	$tmp['field_1'] 	= $v['d_id'];
+	$tmp['field_2'] 	= $v['d_title'];
+	$tmp['field_3'] 	= $v['u_name'];
 
 	array_push($result_formated, $tmp);
 }
