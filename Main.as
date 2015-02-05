@@ -14,6 +14,7 @@
 	import flash.display.StageDisplayState;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	import com.adobe.protocols.dict.events.DisconnectedEvent;
 	
 	
 	public class Main extends MovieClip {
@@ -28,6 +29,7 @@
 		// ค่าที่อ่านได้จาก config file
 		public static var CONFIG_AUTH:String;
 		public static var CONFIG_SERVER_URL:String;
+		public static var CONFIG_SERVER_URL_2:String;
 		public static var CONFIG_STEP_QUERY:Number;
 		public static var CONFIG_STEP_REFRESH_UI:Number;
 		// ---------------------------------------------------------------
@@ -68,6 +70,7 @@
 				var config:XML = responseXML;
 				if(config.auth.length() < 1
 					|| config.serverURL.length() < 1
+					|| config.serverURL2.length() < 1
 					|| config.stepQuery.length() < 1
 					|| config.stepRefreshUI.length() < 1
 				){
@@ -76,18 +79,21 @@
 				}
 				Main.CONFIG_AUTH 						= config.auth;
 				Main.CONFIG_SERVER_URL 					= config.serverURL;
+				Main.CONFIG_SERVER_URL_2 				= config.serverURL2;
 				Main.CONFIG_STEP_QUERY 					= Utils.parse(config.stepQuery);
 				Main.CONFIG_STEP_REFRESH_UI 			= Utils.parse(config.stepRefreshUI);
 				
+				
 				Main.rt.stepIntervalID = setInterval(function(){
-												
+					
+					/*
 					var isQuery:Boolean = false;
 					var isRefreshUI:Boolean = false;
 					if(stepCnt % Main.CONFIG_STEP_QUERY == 0){
 						
 						// query and ui
 						isQuery = true;
-						doQuery();
+						
 					}
 					if(stepCnt % Main.CONFIG_STEP_REFRESH_UI == 0 && !isQuery){
 						
@@ -100,7 +106,11 @@
 					stepCnt++;
 					if(stepCnt == Main.CONFIG_STEP_REFRESH_UI * Main.CONFIG_STEP_QUERY) stepCnt = 0;
 					
-				}, 1000);
+					*/
+					doQueryMysql();
+				}, 10000);
+				doQueryMysql();
+				
 				
 				// นาฬิกา 
 			 	Main.rt.clockIntervalID = setInterval(function(){ updateClockUI();}, (60 * 1000));
@@ -122,9 +132,8 @@
 			// -------------------------------------------------------------------
 			// -------------------------------------------------------------------
 			
-			(Main.rt.mq as MaqueeText).setText("Hello world !! This is very long message ......................");
 			
-			/*
+		
 			this.hiddenToggleButton.addEventListener(MouseEvent.CLICK, function(e:Event) {
 				try { 
 					if (stage.displayState == StageDisplayState.NORMAL) {
@@ -134,31 +143,89 @@
 					}
 				}catch(err:Error){}
 			});
+			
+			this.queryButtonMysql.addEventListener(MouseEvent.CLICK, function(e:Event) {
+				doQueryMysql();
+			});
+			this.queryButtonOracle.addEventListener(MouseEvent.CLICK, function(e:Event) {
+				doQueryOracle();
+			});
+			this.queryButtonMsAccess.addEventListener(MouseEvent.CLICK, function(e:Event) {
+				doQueryMsAccess();
+			});
+			
+			
+			/*
 			this.hiddenQueryButton.addEventListener(MouseEvent.CLICK, function(e:Event) {
 				startQueryAndUpdateUI();
 			});
 			*/
 		}
-		private function doQuery():void{
+		private function doQueryMysql():void{
 			
-			if(Main.DEBUG_TRACE) trace("[Query and UI]");
+			if(Main.DEBUG_TRACE) trace("[Mysql]");
 			
-			var service = new HTTPService(function(arr){
+			var service = new HTTPService("m",function(arr){
 				
 				if(Main.DEBUG_TRACE) trace("[Response Query and UI]", arr.length);
+				clearUI();
+				updateUI(arr);
+			});
+		}
+		
+		private function doQueryOracle():void{
+			
+			if(Main.DEBUG_TRACE) trace("[Oracle]");
+			
+			var service = new HTTPService("o",function(arr){
 				
-
-				try{
+				if(Main.DEBUG_TRACE) trace("[Response Query and UI]", arr.length);
+				clearUI();
+				updateUI(arr);
+			});
+		}
+		
+		private function doQueryMicrosoftSQL():void{
+			
+			if(Main.DEBUG_TRACE) trace("[MicrosoftSQL]");
+			
+			var service = new HTTPService("ms",function(arr){
 				
-					
-				}catch(err:Error){ trace("Error", err); }
+				if(Main.DEBUG_TRACE) trace("[Response Query and UI]", arr.length);
+				clearUI();
+				updateUI(arr);
+			});
+		}
+		
+		private function doQueryMsAccess():void{
+			
+			if(Main.DEBUG_TRACE) trace("[Microsoft Access]");
+			
+			var service = new HTTPService("msa",function(arr){
+				trace(arr);
+				if(Main.DEBUG_TRACE) trace("[Response Query and UI]", arr.length);
+				clearUI();
+				updateUI(arr);
 			});
 		}
 		
 		// -------------------------------------------------------------------
 		// UI
 		// -------------------------------------------------------------------
-
+		
+		private function updateUI(arr):void{
+			
+			try{
+				
+				if(arr.length >= 1) (Main.rt["line1"] as LineDisplay).loadData(arr[0]);
+				if(arr.length >= 2) (Main.rt["line2"] as LineDisplay).loadData(arr[1]);
+				if(arr.length >= 3) (Main.rt["line3"] as LineDisplay).loadData(arr[2]);
+				if(arr.length >= 4) (Main.rt["line4"] as LineDisplay).loadData(arr[3]);
+				if(arr.length >= 5) (Main.rt["line5"] as LineDisplay).loadData(arr[4]);
+				
+			}catch(err:Error){ trace("Error", err); }
+		}
+		
 		// อัพเดทนาฬิกา
 		private function updateClockUI():void{
 			
@@ -170,15 +237,11 @@
 			if (getChildByName("dateLabel") != null) this["dateLabel"].text = Utils.thaiDateString();
 		}
 		private function clearUI():void{
-			/*
-			for(var i=1;i<=5;i++){
-				
-				if (getChildByName("line_"+i) != null){
-					(this["line_"+i] as DisplayRoom).displayLineNo = i;
-					(this["line_"+i] as DisplayRoom).clearUI();
-				}
-			}
-			*/
+			(Main.rt["line1"] as LineDisplay).clearData();
+			(Main.rt["line2"] as LineDisplay).clearData();
+			(Main.rt["line3"] as LineDisplay).clearData();
+			(Main.rt["line4"] as LineDisplay).clearData();
+			(Main.rt["line5"] as LineDisplay).clearData();
 		}
 		
 		// -------------------------------------------------------------------

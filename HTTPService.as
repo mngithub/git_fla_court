@@ -19,15 +19,27 @@
 		var successCallback: Function;
 		var failedCallback: Function;
 
-		public function HTTPService(sc:Function = null, fc:Function = null)
+		public function HTTPService(db:String,sc:Function = null, fc:Function = null)
 		{
 			
 			this.successCallback = sc;
 			this.failedCallback = fc;
 			
 			var loader:URLLoader = new URLLoader();
+
+			var queryPage:String = "query_mysql.php";
+			var queryURL:String = Main.CONFIG_SERVER_URL;
 			
-			var urlRequest : URLRequest = new URLRequest(Main.CONFIG_SERVER_URL + "?"+ (new Date().getTime()));  
+			if(db == "m") queryPage = "query_mysql.php";
+			else if(db == "o") queryPage = "query_oracle.php";
+			else if(db == "ms") queryPage = "query_microsoft_sql.php";
+			else if(db == "msa"){ 
+				queryPage = "query_ms_access.php";
+				queryURL = Main.CONFIG_SERVER_URL_2;
+			}
+			trace(queryURL + queryPage + "?"+ (new Date().getTime()));
+			
+			var urlRequest : URLRequest = new URLRequest(Main.CONFIG_SERVER_URL + queryPage + "?"+ (new Date().getTime()));  
 			urlRequest.method = URLRequestMethod.POST;  
 			
 			var postVar : URLVariables = new URLVariables();  
