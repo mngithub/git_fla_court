@@ -148,10 +148,10 @@
 				doQueryMysql();
 			});
 			this.queryButtonOracle.addEventListener(MouseEvent.CLICK, function(e:Event) {
-				doQueryOracle();
+				//doQueryOracle();
 			});
 			this.queryButtonMsAccess.addEventListener(MouseEvent.CLICK, function(e:Event) {
-				doQueryMsAccess();
+				//doQueryMsAccess();
 			});
 			
 			
@@ -167,7 +167,7 @@
 			
 			var service = new HTTPService("m",function(arr){
 				
-				if(Main.DEBUG_TRACE) trace("[Response Query and UI]", arr.length);
+				if(Main.DEBUG_TRACE) trace("[Response Query and UI]", arr);
 				clearUI();
 				updateUI(arr);
 			});

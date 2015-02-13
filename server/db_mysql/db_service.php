@@ -8,8 +8,9 @@ function selectRecentDocuments(){
 	global $conf;
 	global $db_conn;
 	
-	$sql = "select * from documents d left join user u on d.d_user=u.u_id order by d.d_create_time desc limit 0, ".$conf['query_limit'];
+	$sql = "select * from documents d order by d.d_create_time desc limit 0, ".$conf['query_limit'];
 	$result = queryArray($sql);
+	//echo $sql;
 	return $result;
 }
 

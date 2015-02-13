@@ -63,7 +63,7 @@
 					var rData:String = e.target.data;
 					if(Main.DEBUG_TRACE){
 						//trace("-----------------");
-						//trace(rData);
+						trace(rData);
 						//trace("-----------------");
 					}
 					var rArray:Array = com.adobe.serialization.json.JSON.decode(rData) as Array;

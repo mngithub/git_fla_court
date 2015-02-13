@@ -1,16 +1,19 @@
-﻿<config>
+<config>
 	
 	<!-- --------------------------- SERVER ------------------------- -->
 	
 	<auth>FtdV5IIJap</auth>
+	<!--
 	<serverURL>http://192.168.43.213/git_fla_court/server/</serverURL>
 	<serverURL2>http://192.168.43.213/git_fla_court/server/</serverURL2>
-
+	-->
+	<serverURL>http://capedium.com/git_court/server/</serverURL>
+	<serverURL2>http://capedium.com/git_court/server/</serverURL2>
 	
 	<!-- --------------------------- TIME --------------------------- -->
 	
 	<!-- query ข้อมูลทุกกี่วินาที  -->
-	<stepQuery>180</stepQuery>
+	<stepQuery>11</stepQuery>
 
 	<!-- update ข้อมูลทุกกี่วินาที  -->
 	<stepRefreshUI>5</stepRefreshUI>
