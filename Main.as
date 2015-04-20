@@ -40,6 +40,8 @@
 		private var stepIntervalID:uint;
 		private var stepCnt:Number;
 		
+		private var page:Number;
+		private var displayArray:Array;
 		
 		public function Main() {
 			
@@ -47,6 +49,7 @@
 			Main.rt 					= this;
 			this.stepCnt 				= 0; 
 			this.modalPanel.visible 	= false;
+			this.page					= 1;
 			this.clearUI();
 		
 			try{
@@ -86,13 +89,14 @@
 				
 				Main.rt.stepIntervalID = setInterval(function(){
 					
-					/*
+					
 					var isQuery:Boolean = false;
 					var isRefreshUI:Boolean = false;
 					if(stepCnt % Main.CONFIG_STEP_QUERY == 0){
-						
+						trace(stepCnt, Main.CONFIG_STEP_QUERY);
 						// query and ui
 						isQuery = true;
+						doQueryMysql();
 						
 					}
 					if(stepCnt % Main.CONFIG_STEP_REFRESH_UI == 0 && !isQuery){
@@ -100,15 +104,18 @@
 						// ui
 						isRefreshUI = true;
 						
+						page++;	
+						clearUI();				
+						updateUI();
 					}
 					//trace("step:", stepCnt, " query:",isQuery, " ui:", isUpdateUI);
 					
 					stepCnt++;
 					if(stepCnt == Main.CONFIG_STEP_REFRESH_UI * Main.CONFIG_STEP_QUERY) stepCnt = 0;
 					
-					*/
-					doQueryMysql();
-				}, 10000);
+					
+					//doQueryMysql();
+				}, 1000);
 				doQueryMysql();
 				
 				
@@ -167,12 +174,16 @@
 			
 			var service = new HTTPService("m",function(arr){
 				
-				if(Main.DEBUG_TRACE) trace("[Response Query and UI]", arr);
-				clearUI();
-				updateUI(arr);
+				//if(Main.DEBUG_TRACE) trace("[Response Query and UI]", arr);
+				
+				Main.rt.displayArray = arr;
+				
+				clearUI();				
+				updateUI();
 			});
 		}
 		
+		/*
 		private function doQueryOracle():void{
 			
 			if(Main.DEBUG_TRACE) trace("[Oracle]");
@@ -208,20 +219,30 @@
 				updateUI(arr);
 			});
 		}
-		
+		*/
 		// -------------------------------------------------------------------
 		// UI
 		// -------------------------------------------------------------------
 		
-		private function updateUI(arr):void{
+		private function updateUI():void{
+			
+			if(this.displayArray == null) return;
+			
+			var totalPage:Number = Math.ceil(this.displayArray.length / 5);
+			if(totalPage == 0) totalPage = 1;
+			if(page > totalPage) page = 1;
+			
+			
+			//trace("page",  page,"/" ,totalPage);
+			(Main.rt["txtPage"] as TextField).text = "หน้าที่ " + page + " / " + totalPage;
 			
 			try{
 				
-				if(arr.length >= 1) (Main.rt["line1"] as LineDisplay).loadData(arr[0]);
-				if(arr.length >= 2) (Main.rt["line2"] as LineDisplay).loadData(arr[1]);
-				if(arr.length >= 3) (Main.rt["line3"] as LineDisplay).loadData(arr[2]);
-				if(arr.length >= 4) (Main.rt["line4"] as LineDisplay).loadData(arr[3]);
-				if(arr.length >= 5) (Main.rt["line5"] as LineDisplay).loadData(arr[4]);
+				if(this.displayArray.length >= ((page-1)*5 + 1)) (Main.rt["line1"] as LineDisplay).loadData(this.displayArray[(page-1)*5 + 0]);
+				if(this.displayArray.length >= ((page-1)*5 + 2)) (Main.rt["line2"] as LineDisplay).loadData(this.displayArray[(page-1)*5 + 1]);
+				if(this.displayArray.length >= ((page-1)*5 + 3)) (Main.rt["line3"] as LineDisplay).loadData(this.displayArray[(page-1)*5 + 2]);
+				if(this.displayArray.length >= ((page-1)*5 + 4)) (Main.rt["line4"] as LineDisplay).loadData(this.displayArray[(page-1)*5 + 3]);
+				if(this.displayArray.length >= ((page-1)*5 + 5)) (Main.rt["line5"] as LineDisplay).loadData(this.displayArray[(page-1)*5 + 4]);
 				
 			}catch(err:Error){ trace("Error", err); }
 		}
@@ -237,6 +258,7 @@
 			if (getChildByName("dateLabel") != null) this["dateLabel"].text = Utils.thaiDateString();
 		}
 		private function clearUI():void{
+			(Main.rt["txtPage"] as TextField).text = "";
 			(Main.rt["line1"] as LineDisplay).clearData();
 			(Main.rt["line2"] as LineDisplay).clearData();
 			(Main.rt["line3"] as LineDisplay).clearData();

@@ -27,12 +27,12 @@
 			try{
 				
 				
-				(this.txtField1 as TextField).text = d.field_1;
-				(this.txtField2 as TextField).text = d.field_2;
-				(this.txtField3 as TextField).text = d.field_3;
-				(this.txtField4 as TextField).text = d.field_4;
-				(this.txtField5 as TextField).text = d.field_5;
-				(this.txtField6 as TextField).text = d.field_6;
+				(this.txtField1 as TextField).text = trim(d.field_1);
+				(this.txtField2 as TextField).text = trim(d.field_2);
+				(this.txtField3 as TextField).text = trim(d.field_3);
+				(this.txtField4 as TextField).text = trim(d.field_4);
+				(this.txtField5 as TextField).text = trim(d.field_5);
+				(this.txtField6 as TextField).text = trim(d.field_6);
 				
 				if(d.field_7.toString() == 'เสร็จการพิจารณาคดี') 
 					(this.txtField7 as TextField).textColor = 0xFF0000;
@@ -40,6 +40,10 @@
 					(this.txtField7 as TextField).textColor = 0xFFE9A5;
 				(this.txtField7 as TextField).text = d.field_7;
 			}catch(err){}
+		}
+		
+		private function trim(obj:Object):String {
+			return obj.toString().replace(/^\s+|\s+$/g, '');
 		}
 	}
 	
