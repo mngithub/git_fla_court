@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'THSarabun Bold';
+    src: url('THSarabun Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'THSarabun';
+    src: url('THSarabun.ttf') format('truetype');
+	font-weight: normal;
+}
+
+body {
+	background-color: black;
+	width:1920px;
+	height:1080px;
+	padding:0px;
+	margin:0px;
+	background-image: url('bg.jpg');
+	background-repeat: no-repeat;
+	
+	font-family: 'THSarabun';
+}
+
+/* ------------------------------------ */
+
+table.headertable {
+	width:100%;
+	font-size: 60px;
+	color: white;
+	text-align: center;
+}
+table.headertable tbody tr td {
+	padding:5px;
+}
+table.headertable .pagging { 
+	width:250px; 
+	font-size: 35px;
+}
+table.headertable .title {
+	
+}
+table.headertable .clock {
+	width:250px; 
+}
+
+.center { text-align: center;}
+
+#clock div { float:left;}
+#clock { margin-left: 20px;}
+/* ------------------------------------ */
+
+.datatable  .header{
+
+	width:94%;
+	margin-left:auto;
+	margin-right:auto;
+	
+	font-size: 60px;
+	font-weight:normal;
+	
+	text-align: center;
+}
+.datatable   .header  .col{
+	float:left;
+	margin: 0px;
+	padding: 5px;
+	
+	color: white;
+	background-color: rgb(31, 74, 50);
+	background-color: rgba(31, 74, 50, 0.7);
+}
+.datatable .col1  {
+	width: 210px;
+} 
+.datatable .col2  {
+	width: 460px;
+}
+.datatable .col3  {
+	width: 300px;
+}
+.datatable .col4  {
+	width: 130px;
+}
+.datatable .col5  {
+	width: 210px;
+}
+.datatable .col6  {
+	width: 210px;
+}
+.datatable .col7  {
+	width: 200px;
+}
+.datatable   .line  {
+	width:94%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:5px;
+}
+.datatable   .line  .col{
+	font-size:40px;
+	line-height:47px;
+	height: 140px;
+	float: left;
+	
+	color: black;
+	background-color: rgb(59, 142, 95);
+	background-color: rgba(59, 142, 95, 0.7);
+
+	margin:0px;
+	padding: 5px;
+	
+	overflow:hidden;
+}
+
+/* ------------------------------------ */
