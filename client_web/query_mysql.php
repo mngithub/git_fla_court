@@ -85,7 +85,7 @@ function queryArray($sql){
 // ------------------------------------------------
 // ------------------------------------------------
 
-$result_unformat = selectTodayDocuments();
+$result_unformat = queryDisplay();
 $result_formated = array();
 
 foreach ($result_unformat as $k => $v) {

@@ -13,6 +13,11 @@ $conf['mysql']['username'] 		= 'root';
 $conf['mysql']['password'] 		= '';
 $conf['mysql']['database'] 		= 'git_court';
 
+// ------------------------------------------------
+// ------------------------------------------------
+// display
+// ------------------------------------------------
+// ------------------------------------------------
 
 // ระยะเวลา update UI และ paging ไปหน้าถัดไป
 $conf['display']['interval_ui'] 			= 10000;
@@ -47,7 +52,7 @@ function convertToCompareTime($field){
 }
 
 // ดึงข้อมูลเฉพาะวันที่ปัจจุบัน
-function selectTodayDocuments(){
+function queryDisplay(){
 	
 	global $conf;
 	global $db_conn;
@@ -56,10 +61,19 @@ function selectTodayDocuments(){
 	$date_end = date("Y-m-d") . ' 23:59:59';
 	
 	$sql = "select * from documents d where d.d_create_time >= '$date_start' and d.d_create_time <= '$date_end' order by d.d_create_time asc";
+	
 	$result = queryArray($sql);
-	//echo $sql;
 	return $result;
 }
+
+// ------------------------------------------------
+// ------------------------------------------------
+// display_room
+// ------------------------------------------------
+// ------------------------------------------------
+
+
+
 
 // ------------------------------------------------
 // ------------------------------------------------
