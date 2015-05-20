@@ -253,7 +253,7 @@ require_once("init.php");
 		<div class="datatable">
 			<div class="header">
 				<div class="col col1">เลขคดี</div>
-				<div class="col col2">โจทย์</div>
+				<div class="col col2">โจทก์</div>
 				<div class="col col3">จำเลย</div>
 				<div class="col col4">เวลา</div>
 				<div class="col col5">บังลังก์</div>
