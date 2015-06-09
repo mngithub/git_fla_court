@@ -5,7 +5,7 @@
 // ------------------------------------------------
 // ------------------------------------------------
 
-$conf['title']			 		= 'ศาลแขวงพัทยา';
+$conf['title']			 		= 'title';
 
 $conf['interval_ui'] 			= 10000;
 $conf['interval_query'] 		= 60000;
@@ -174,7 +174,6 @@ $conf['past_event_delay'] 		= 10;
 					if(Engine.displayPage > totalPage) Engine.displayPage = 1;
 					
 					$('#countRecord').html(objCount);
-					$('#countRecordEN').html(objCount);
 					$('#pagging').html('หน้าที่ ' + Engine.displayPage + ' / ' + totalPage);
 					
 					//console.log(Engine.displayPage,totalPage);
@@ -196,7 +195,7 @@ $conf['past_event_delay'] 		= 10;
 				},
 				updateLine: function(line,obj){
 					try{
-						
+							
 						$('#line'+line+' .col1').html(obj.field_1);
 						$('#line'+line+' .col2').html(obj.field_2);
 						$('#line'+line+' .col3').html(obj.field_3);
@@ -231,36 +230,20 @@ $conf['past_event_delay'] 		= 10;
 					Engine.toggle = !Engine.toggle;
 					
 					// วันที่
-					var mStr = '';
-					if(m == 1) mStr = 'มกราคม';
-					else if(m == 2) mStr = 'กุมภาพันธ์';
-					else if(m == 3) mStr = 'มีนาคม';
-					else if(m == 4) mStr = 'เมษายน';
-					else if(m == 5) mStr = 'พฤษภาคม';
-					else if(m == 6) mStr = 'มิถุนายน';
-					else if(m == 7) mStr = 'กรกฎาคม';
-					else if(m == 8) mStr = 'สิงหาคม';
-					else if(m == 9) mStr = 'กันยายน';
-					else if(m == 10) mStr = 'ตุลาคม';
-					else if(m == 11) mStr = 'พฤศจิกายน';
-					else if(m == 12) mStr = 'ธันวาคม';
+					if(m == 1) m = 'มกราคม';
+					else if(m == 2) m = 'กุมภาพันธ์';
+					else if(m == 3) m = 'มีนาคม';
+					else if(m == 4) m = 'เมษายน';
+					else if(m == 5) m = 'พฤษภาคม';
+					else if(m == 6) m = 'มิถุนายน';
+					else if(m == 7) m = 'กรกฎาคม';
+					else if(m == 8) m = 'สิงหาคม';
+					else if(m == 9) m = 'กันยายน';
+					else if(m == 10) m = 'ตุลาคม';
+					else if(m == 11) m = 'พฤศจิกายน';
+					else if(m == 12) m = 'ธันวาคม';
 				
-					$('#currentDate').html(d + ' ' + mStr + ' ' + (y+543));
-					
-					if(m == 1) mStr = 'January';
-					else if(m == 2) mStr = 'February';
-					else if(m == 3) mStr = 'March';
-					else if(m == 4) mStr = 'April';
-					else if(m == 5) mStr = 'May';
-					else if(m == 6) mStr = 'June';
-					else if(m == 7) mStr = 'July';
-					else if(m == 8) mStr = 'August';
-					else if(m == 9) mStr = 'September';
-					else if(m == 10) mStr = 'October';
-					else if(m == 11) mStr = 'November';
-					else if(m == 12) mStr = 'December';
-					
-					$('#currentDateEN').html(d + ' ' + mStr + ' ' + (y));
+					$('#currentDate').html(d + ' ' + m + ' ' + (y+543));
 				}
 			}
 		</script>
@@ -269,20 +252,12 @@ $conf['past_event_delay'] 		= 10;
 			<tbody>
 				<tr>
 					<td class="col col1">&nbsp;</td>
-					<td class="col col2">
-						คดีนัดพิจารณา
-						<div class="subtitle">Hearing List</div>
-					</td>
-					<td class="col col3">
-						วันที่  <span id="currentDate">&nbsp;</span>
-						<div class="subtitle"><span id="currentDateEN">&nbsp;</span></div>
-					</td>
-					<td class="col col4">
-						จำนวน <span id="countRecord"></span> คดี
-						<div class="subtitle">Totaling <span id="countRecordEN"></span> Case(s)</div>
-					</td>
+					<td class="col col2 title" rowspan="2">คดีนัดพิจารณา วันที่  <span id="currentDate"></span> มีจำนวน <span id="countRecord"></span> คดี</td>
+					<td class="col col3 clock" rowspan="2"><div id="clock"></div></td>
 				</tr>
-				
+				<tr>
+					<td class="col col1 pagging"><div id="pagging">หน้าที่ 1 / 2</td>
+				</tr>
 			</tbody>
 		</table>
 		
@@ -290,55 +265,69 @@ $conf['past_event_delay'] 		= 10;
 		
 		<div class="datatable">
 			<div class="header">
-				<div class="col col1">
-					เลขคดี
-					<div class="subtitle">Case No.</div>
-				</div>
-				<div class="col col2">
-					โจทก์
-					<div class="subtitle">Plaintiffs</div>
-				</div>
-				<div class="col col3">
-					จำเลย
-					<div class="subtitle">Defendants</div>
-				</div>
-				<div class="col col4">
-					เวลา
-					<div class="subtitle">Time</div>
-				</div>
-				<div class="col col5">
-					บัลลังก์
-					<div class="subtitle">Court Room</div>
-				</div>
-				<div class="col col6">
-					ประเภทนัด
-					<div class="subtitle">Subject</div>
-				</div>
-				<div class="col col7">
-					สถานะ
-					<div class="subtitle">Hearing Status</div>
-				</div>
+				<div class="col col1">เลขคดี</div>
+				<div class="col col2">โจทก์</div>
+				<div class="col col3">จำเลย</div>
+				<div class="col col4">เวลา</div>
+				<div class="col col5">บัลลังก์</div>
+				<div class="col col6">ประเภทนัด</div>
+				<div class="col col7">สถานะ</div>
 			</div>
 		</div>
 		
 		<div style="clear:both"></div>
 		
 		<div class="datatable">
-		
-			<? for($i=1;$i<=5;$i++){?>
-			<div id="line<?=$i ?>" class="line line<?=$i ?>  <? if($i%2==0){ echo 'even'; }else{ echo 'odd'; } ?>  ">
-				<div class="col col1  center "></div>
-				<div class="col col2 "></div>
-				<div class="col col3 "></div>
-				<div class="col col4  center"></div>
-				<div class="col col5  center "></div>
-				<div class="col col6  center"></div>
-				<div class="col col7  center "></div>
+			<div id="line1" class="line line1">
+				<div class="col col1 center"></div>
+				<div class="col col2"></div>
+				<div class="col col3"></div>
+				<div class="col col4 center"></div>
+				<div class="col col5 center"></div>
+				<div class="col col6 center"></div>
+				<div class="col col7 center"></div>
 				<div style="clear:both"></div>
 			</div>
-			<? } ?>
-			
+			<div id="line2" class="line line2">
+				<div class="col col1 center"></div>
+				<div class="col col2"></div>
+				<div class="col col3"></div>
+				<div class="col col4 center"></div>
+				<div class="col col5 center"></div>
+				<div class="col col6 center"></div>
+				<div class="col col7 center"></div>
+				<div style="clear:both"></div>
+			</div>
+			<div id="line3" class="line line3">
+				<div class="col col1 center"></div>
+				<div class="col col2"></div>
+				<div class="col col3"></div>
+				<div class="col col4 center"></div>
+				<div class="col col5 center"></div>
+				<div class="col col6 center"></div>
+				<div class="col col7 center"></div>
+				<div style="clear:both"></div>
+			</div>
+			<div id="line4" class="line line4">
+				<div class="col col1 center"></div>
+				<div class="col col2"></div>
+				<div class="col col3"></div>
+				<div class="col col4 center"></div>
+				<div class="col col5 center"></div>
+				<div class="col col6 center"></div>
+				<div class="col col7 center"></div>
+				<div style="clear:both"></div>
+			</div>
+			<div id="line5" class="line line5">
+				<div class="col col1 center"></div>
+				<div class="col col2"></div>
+				<div class="col col3"></div>
+				<div class="col col4 center"></div>
+				<div class="col col5 center"></div>
+				<div class="col col6 center"></div>
+				<div class="col col7 center"></div>
+				<div style="clear:both"></div>
+			</div>
 		</div>
-		<div id="pagging" style="display:none;"></div><div id="clock"  style="display:none;"></div>
 	</body>
 </html>

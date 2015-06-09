@@ -11,60 +11,38 @@
 
 body {
 	background-color: black;
-	width:1050px;
-	height:841px;
+	width:1920px;
+	height:1080px;
 	padding:0px;
 	margin:0px;
-	background-image: url('bg_5.jpg');
+	background-image: url('bg.jpg');
 	background-repeat: no-repeat;
 	
-	font-family: 'IrisUPC','BrowalliaUPC';
+	font-family: 'THSarabun';
 }
 
 /* ------------------------------------ */
 
 table.headertable {
 	width:100%;
-	font-size: 58px;
+	font-size: 60px;
 	color: white;
-	text-align: left;
+	text-align: center;
 }
 table.headertable tbody tr td {
 	padding:5px;
-	padding-top:8px;
 }
 table.headertable .pagging { 
 	width:250px; 
 	font-size: 35px;
 }
-table.headertable .col1 {
-	width:120px !important;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+table.headertable .title {
+	
 }
-table.headertable .col2 {
-	width:230px !important;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+table.headertable .clock {
+	width:250px; 
 }
-table.headertable .col3 {
-	width:395px; 
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-table.headertable .col4{
 
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-table.headertable  div.subtitle {
-	font-size: 32px;
-	margin-top: -23px;
-}
 .center { text-align: center;}
 
 #clock div { float:left;}
@@ -73,11 +51,11 @@ table.headertable  div.subtitle {
 
 .datatable  .header{
 
-	width:100%;
+	width:94%;
 	margin-left:auto;
 	margin-right:auto;
 	
-	font-size: 28px;
+	font-size: 60px;
 	font-weight:normal;
 	
 	text-align: center;
@@ -88,64 +66,50 @@ table.headertable  div.subtitle {
 	padding: 5px;
 	
 	color: white;
-	/* background-color: rgb(31, 74, 50); */
-	/* background-color: rgba(31, 74, 50, 0.7); */
+	background-color: rgb(31, 74, 50);
+	background-color: rgba(31, 74, 50, 0.7);
 }
-
-.datatable .header .col  div.subtitle {
-	font-size: 28px;
-	margin-top: -12px;
-}
-
 .datatable .col1  {
-	width: 110px;
+	width: 210px;
 } 
 .datatable .col2  {
-	width: 220px;
+	width: 460px;
 }
 .datatable .col3  {
-	width: 220px;
+	width: 300px;
 }
 .datatable .col4  {
-	width: 80px;
-}
-.datatable .col5  {
-	width: 100px;
-}
-.datatable .col6  {
 	width: 130px;
 }
+.datatable .col5  {
+	width: 210px;
+}
+.datatable .col6  {
+	width: 210px;
+}
 .datatable .col7  {
-	width: 120px;
+	width: 200px;
 }
 .datatable   .line  {
-	width:100%;
+	width:94%;
 	margin-left:auto;
 	margin-right:auto;
-	margin-top:2px;
-	
-	
+	margin-top:5px;
 }
 .datatable   .line  .col{
-	font-size: 28px;
-	/* line-height:47px; */
-	/* height: 118px; */
-	height: 100px;
+	font-size:40px;
+	line-height:47px;
+	height: 140px;
 	float: left;
 	
-	
-	
 	color: black;
-	
+	background-color: rgb(59, 142, 95);
+	background-color: rgba(59, 142, 95, 0.7);
 
 	margin:0px;
 	padding: 5px;
 	
-	margin-bottom:18px;
 	overflow:hidden;
 }
-.datatable   .line.even{
-	background-color: rgb(194, 136, 83);
-	background-color: rgba(194, 136, 83, 0.7);
-}
+
 /* ------------------------------------ */

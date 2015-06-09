@@ -61,7 +61,7 @@ $conf['past_event_delay'] 		= 10;
 					
 					var post_message = '';
 					$.ajax({
-						url: 'query_mysql.php',
+						url: 'query_mysql_test.php',
 						type: 'POST',
 						dataType: 'html',
 						data: post_message,
