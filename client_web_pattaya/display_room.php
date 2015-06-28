@@ -17,6 +17,14 @@ $conf['past_event_delay'] 		= 10;
 
 // ------------------------------------------------
 // ------------------------------------------------
+
+if(isset($_REQUEST['r'])){
+	$r = trim($_REQUEST['r']);
+}else{
+	
+	// default room
+	$r = '1';
+}
 ?>
 <html>
 	<head>
@@ -25,7 +33,7 @@ $conf['past_event_delay'] 		= 10;
 		<script src="jquery.min.js"></script>
 		<script src="json2.js"></script>
 		<link rel="shortcut icon" href="favicon.ico?v=20" />
-		<link rel="stylesheet" href="style.css?<?=rand(0,1000)?>">
+		<link rel="stylesheet" href="display_room.css?<?=rand(0,1000)?>">
 	</head>
 	<body>
 		
@@ -61,7 +69,7 @@ $conf['past_event_delay'] 		= 10;
 					
 					var post_message = '';
 					$.ajax({
-						url: 'query_mysql_test.php',
+						url: 'query_mysql.php',
 						type: 'POST',
 						dataType: 'html',
 						data: post_message,
@@ -91,7 +99,10 @@ $conf['past_event_delay'] 		= 10;
 									<? if($conf['is_show_past_event']){ ?>
 									
 										// แทนค่า ด้วย array ข้อมูลใหม่
-										Engine.displayArray = tempArray;
+										for(var k=0; k<tempArray.length; k++){
+											if(tempArray[k].field_5.toString() != '<?php echo addslashes($r); ?>') continue;
+											Engine.displayArray.push(tempArray[k]);
+										}
 										
 									<? }else{ ?>
 										
@@ -107,6 +118,8 @@ $conf['past_event_delay'] 		= 10;
 										// คำนวนเวลา
 										for(var k=0; k<tempArray.length; k++){
 											
+											if(tempArray[k].field_5.toString() != '<?php echo addslashes($r); ?>') continue;
+			
 											var  temp = tempArray[k].compare_time.toString();
 											if(temp.length == 4) temp = '0'+ temp;
 											var calcMinute = (+temp.substring(0,2)) * 60 + (+temp.substring(3,5));
@@ -268,13 +281,20 @@ $conf['past_event_delay'] 		= 10;
 		<table class="headertable">
 			<tbody>
 				<tr>
-					<td class="col col1">&nbsp;</td>
+					<td class="col col1" rowspan="2">&nbsp;</td>
+					<td class="col col0" colspan="3" align="center">
+						ห้องพิจารณาคดีที่ 1
+					</td>
+					<td class="col col5" rowspan="2">&nbsp;</td>
+				</tr>
+				<tr>
+				
 					<td class="col col2">
 						คดีนัดพิจารณา
 						<div class="subtitle">Hearing List</div>
 					</td>
 					<td class="col col3">
-						วันที่  <span id="currentDate">&nbsp;</span>
+						<div>วันที่  <span id="currentDate">&nbsp;</span></div>
 						<div class="subtitle"><span id="currentDateEN">&nbsp;</span></div>
 					</td>
 					<td class="col col4">
@@ -282,7 +302,6 @@ $conf['past_event_delay'] 		= 10;
 						<div class="subtitle">Totaling <span id="countRecordEN"></span> Case(s)</div>
 					</td>
 				</tr>
-				
 			</tbody>
 		</table>
 		

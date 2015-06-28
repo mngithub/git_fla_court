@@ -25,7 +25,7 @@ $conf['past_event_delay'] 		= 10;
 		<script src="jquery.min.js"></script>
 		<script src="json2.js"></script>
 		<link rel="shortcut icon" href="favicon.ico?v=20" />
-		<link rel="stylesheet" href="style.css?<?=rand(0,1000)?>">
+		<link rel="stylesheet" href="display.css?<?=rand(0,1000)?>">
 	</head>
 	<body>
 		
