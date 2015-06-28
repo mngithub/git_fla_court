@@ -142,7 +142,7 @@ table.headertable  div.subtitle {
 }
 .datatable   .line  .col{
 	font-size: 35px;
-	/* line-height:47px; */
+	line-height:44px; 
 	height: 125px;
 	float: left;
 	
