@@ -98,7 +98,9 @@ if(isset($_REQUEST['r'])){
 									var tempArray = JSON.parse(data);
 									
 									<? if($conf['is_show_past_event']){ ?>
-									
+										
+										Engine.displayArray = new Array();
+										
 										// แทนค่า ด้วย array ข้อมูลใหม่
 										for(var k=0; k<tempArray.length; k++){
 											if('<?php echo addslashes($r); ?>' != '' 
