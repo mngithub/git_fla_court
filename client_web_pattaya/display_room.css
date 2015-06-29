@@ -1,15 +1,19 @@
 @font-face {
-    font-family: 'THSarabun Bold';
-    src: url('THSarabun Bold.ttf') format('truetype');
-    font-weight: bold;
+    font-family: 'BrowalliaUPC';
+    src: url('browau.ttf') format('truetype');
+	font-weight: normal;
 }
 @font-face {
-    font-family: 'THSarabun';
-    src: url('THSarabun.ttf') format('truetype');
+    font-family: 'IrisUPC';
+    src: url('upcil.ttf') format('truetype');
 	font-weight: normal;
 }
 
 body {
+	
+	/* for android device */
+	/* zoom: 65%; */
+
 	background-color: black;
 	width:1920px;
 	height:1080px;
@@ -17,7 +21,7 @@ body {
 	margin:0px;
 	background-image: url('display_room.jpg');
 	background-repeat: no-repeat;
-	
+	/* background-size: 100% auto;  width and height, can be %, px or whatever. */
 	font-family: 'IrisUPC','BrowalliaUPC';
 }
 

@@ -34,7 +34,7 @@ if(isset($_REQUEST['r'])){
 		<script src="jquery.min.js"></script>
 		<script src="json2.js"></script>
 		<link rel="shortcut icon" href="favicon.ico?v=20" />
-		<link rel="stylesheet" href="display_room.css?<?=rand(0,1000)?>">
+		<link rel="stylesheet" href="display_hd.css?<?=rand(0,1000)?>">
 	</head>
 	<body>
 		
